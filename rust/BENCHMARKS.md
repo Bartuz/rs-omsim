@@ -108,6 +108,8 @@ as the C has them.
 | glyph read plans | `engine/src/glyph_plan.rs` | position lookups around every glyph, every cycle |
 | movement trig memo | `engine/src/trig_memo.rs` | recomputing `cos`/`sin` of the same arm angles |
 
+OPTIMIZATIONS.md explains each one, and how it could go into the C.
+
 ## Build options (measured, not used by default)
 
 The same paired setup on the omsim tests compared build options. The baseline here is
