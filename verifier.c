@@ -1,6 +1,7 @@
 #include "verifier.h"
 
 #include "decode.h"
+#include "fastforward.h"
 #include "parse.h"
 #include "sim.h"
 #include "steady-state.h"
@@ -1106,8 +1107,7 @@ int verifier_evaluate_metric(void *verifier, const char *metric)
         solution.target_number_of_outputs = product_count;
         if (product_count <= 0)
             board.complete = true;
-        while ((v->disable_limits || board.cycle < v->cycle_limit) && !board.complete && !board.collision)
-            cycle(&solution, &board);
+        run_until_complete(&solution, &board, v->disable_limits ? UINT64_MAX : v->cycle_limit);
         struct per_cycle_measurements m = measure_at_current_cycle(v, &solution, &board, true);
         check_wrong_output_and_destroy(v, &solution, &board);
         v->error = m.error;
@@ -1130,8 +1130,7 @@ int verifier_evaluate_metric(void *verifier, const char *metric)
         }
         metric = (const char *)(endptr + 1);
         solution.target_number_of_outputs = UINT64_MAX;
-        while (board.cycle < cycle_count && !board.collision)
-            cycle(&solution, &board);
+        run_until_complete(&solution, &board, (uint64_t)cycle_count);
         board.complete = true;
         struct per_cycle_measurements m = measure_at_current_cycle(v, &solution, &board, true);
         check_wrong_output_and_destroy(v, &solution, &board);
@@ -1160,8 +1159,7 @@ int verifier_evaluate_metric(void *verifier, const char *metric)
             return -1;
         }
         if (!v->completion.valid) {
-            while ((v->disable_limits || board.cycle < v->cycle_limit) && !board.complete && !board.collision)
-                cycle(&solution, &board);
+            run_until_complete(&solution, &board, v->disable_limits ? UINT64_MAX : v->cycle_limit);
             v->completion = measure_at_current_cycle(v, &solution, &board, true);
         }
         check_wrong_output_and_destroy(v, &solution, &board);

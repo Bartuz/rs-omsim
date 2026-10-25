@@ -11,8 +11,8 @@ EMEXPORTS4=_verifier_wrong_output_atom,_verifier_wrong_output_clear,_verifier_nu
 EMEXPORTS5=_verifier_output_interval,_verifier_output_intervals_repeat_after,_verifier_evaluate_approximate_metric
 EMEXPORTS6=_verifier_disable_limits
 
-HEADER=collision.h decode.h parse.h sim.h steady-state.h verifier.h
-SOURCE=collision.c decode.c parse.c sim.c steady-state.c verifier.c
+HEADER=collision.h decode.h fastforward.h parse.h sim.h steady-state.h verifier.h
+SOURCE=collision.c decode.c fastforward.c parse.c sim.c steady-state.c verifier.c
 
 omsim: $(HEADER) $(SOURCE) Makefile main.c
 	$(CC) $(CFLAGS) -g -D_DEFAULT_SOURCE -o $@ $(SOURCE) main.c $(LDLIBS)
