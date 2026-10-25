@@ -1,0 +1,26 @@
+[package]
+name = "rs-omsim"
+version = "0.1.0"
+edition = "2024"
+description = "omsim (the C at the root of this repository) in Rust"
+license-file = "../COPYING"
+publish = false
+build = "build.rs"
+
+[features]
+# Compiles the C at the root of this repository into the tests as their oracle.
+reference = []
+
+[dependencies]
+omsim-native = { path = "engine" }
+
+[build-dependencies]
+cc = "1"
+
+[workspace]
+members = ["engine", "bench"]
+default-members = [".", "engine", "bench"]
+
+[profile.release]
+debug = "line-tables-only"
+codegen-units = 1

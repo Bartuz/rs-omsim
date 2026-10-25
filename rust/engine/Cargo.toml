@@ -1,0 +1,13 @@
+[package]
+name = "omsim-native"
+version = "0.1.0"
+edition = "2024"
+publish = false
+description = "The omsim simulator in Rust: a translation of the C at the root of this repository, with exact fast paths"
+license-file = "../../COPYING"
+
+[lib]
+crate-type = ["rlib", "cdylib"]
+
+[dependencies]
+c2rust-bitfields = "=0.22.1"

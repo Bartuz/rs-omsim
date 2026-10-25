@@ -1,0 +1,7 @@
+[package]
+name = "omsim-bench"
+version = "0.1.0"
+edition = "2024"
+description = "Differential test and paired timing of omsim verifier libraries, C or Rust"
+license-file = "../../COPYING"
+publish = false

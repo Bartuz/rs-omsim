@@ -13,6 +13,30 @@ to simulate a particular solution. also,
 builds a shared library with an API designed for bots to use (see verifier.h for
 documentation).
 
+the same tools also exist in rust, in the rust/ folder: a translation of the c,
+plus some fast paths that give the same results.  with a rust toolchain
+(https://rustup.rs), build them from the root of the repository with
+
+  cargo build --release --manifest-path rust/Cargo.toml
+
+then
+
+  rust/target/release/run-tests
+
+runs the same tests as ./run-tests,
+
+  rust/target/release/omsim -p <path to .puzzle> <path to .solution>
+
+simulates a particular solution (same options and output as ./omsim), and
+rust/target/release/libomsim_native.so is the shared library.  it has the API
+of verifier.h, with every function name prefixed by rs_ (rs_verifier_create,
+rs_verifier_evaluate_metric, ...).
+
+  cargo test --release --features reference --manifest-path rust/Cargo.toml
+
+checks the rust against the c on every test solution.  rust/BENCHMARKS.md
+compares their speed and says how to reproduce the numbers.
+
 the following aren't implemented yet:
 - "spooky action at a distance" via conduit cloning
 
