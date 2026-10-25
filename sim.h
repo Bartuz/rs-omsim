@@ -559,6 +559,13 @@ struct board {
 
     // did the solution complete yet?
     bool complete;
+
+    // a box containing the origin and every position insert_atom has written to.
+    // fast_forward only needs to scan this part of the grid's array.
+    int32_t written_min_u;
+    int32_t written_max_u;
+    int32_t written_min_v;
+    int32_t written_max_v;
 };
 
 // initial_board_size is a sizing hint to the hash table; zero means 'no hint'.

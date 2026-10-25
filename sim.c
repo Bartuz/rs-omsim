@@ -2418,6 +2418,14 @@ void insert_atom(struct board *board, struct vector query, atom atom)
         if (!(a->atom & REMOVED))
             board->area++;
         a->atom = atom;
+        if (query.u < board->written_min_u)
+            board->written_min_u = query.u;
+        if (query.u > board->written_max_u)
+            board->written_max_u = query.u;
+        if (query.v < board->written_min_v)
+            board->written_min_v = query.v;
+        if (query.v > board->written_max_v)
+            board->written_max_v = query.v;
     }
 }
 
